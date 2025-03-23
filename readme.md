@@ -1,4 +1,2 @@
 # install 
-pip install -q -U google-genai
-pip install flask-cors  
-pip install flask python-dotenv PyPDF2 python-docx
+pip install -q -U google-genai flask-cors flask python-dotenv PyPDF2 python-docx
