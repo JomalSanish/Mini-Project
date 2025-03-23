@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Monitor AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Home Page -->
+    <div id="home-page" class="container">
+        <h1 class="main-title">Health Monitor AI</h1>
+        <div class="home-container">
+            <div class="option-box" onclick="navigateTo('auto-detect')">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMWEyMzdlIj48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMTZINVY1aDE0djE0ek03IDEwaDJ2N0g3em00LTNoMnYxMGgtMnpNMTUgMTNoMnY0aC0yeiIvPjwvc3ZnPg==">
+                <h2>Auto Detect</h2>
+            </div>
+            <div class="option-box" onclick="navigateTo('specific-disease')">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMWEyMzdlIj48cGF0aCBkPSJNMjEgOS41YzAgMS43MS0uNzIgMy4yNi0xLjg3IDQuMzUuMDMuMjUuMDcuNTEuMDcuNzggMCAxLjE1LS40NSAyLjE4LTEuMTYgMi45NS4zOS4yMi44NS4zNSAxLjM0LjM1IDEuMzggMCAyLjUtMS4xMiAyLjUtMi41UzIxLjM4IDEyIDIwIDEyYy0uMDQgMC0uMDggMC0uMTIuMDEuMS0uNjYuMTItMS4zMy4xMi0yIDAtMy41LTIuNDUtNi01LjUtNi0yLjI5IDAtNC4yNSAxLjIyLTUuMzUgM0g1LjVDMy41NyA3IDIgOC41NyAyIDEwLjVTMy41NyAxNCA1LjUgMTRoNC43MWMuMzkgMCAuNzIuMjMuODkuNTYuMTcuMzMuMTQuNzMtLjA5IDEuMDItMS4zNiAxLjY4LTEuMzIgNC4wNS4wOSA1LjY5LjMzLjM3LjczLjY4IDEuMTcuOTIuMjEuMTEuNDQuMTkuNjcuMjUuMjMuMDYuNDcuMDkuNzEuMDkuNzYgMCAxLjQ5LS4yOCAyLjA1LS43OS41Ny0uNTEuOTMtMS4yMSAxLjAzLTEuOTcuNDctLjE3LjkxLS40MSAxLjMtLjcxIDEuNDItMS4xMSAyLjI4LTIuODMgMi4yOC00Ljc5IDAtLjI3LS4wNC0uNTQtLjEtLjguOTUtLjczIDEuNi0xLjgzIDEuNi0zLjA1ek01LjUgMTJjLS44MyAwLTEuNS0uNjctMS41LTEuNVM0LjY3IDkgNS41IDkgNyA5LjY3IDcgMTAuNSA2LjMzIDEyIDUuNSAxMnoiLz48L3N2Zz4=">
+                <h2>Specific Disease</h2>
+            </div>
+            <div class="option-box" onclick="navigateTo('symptoms')">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMWEyMzdlIj48cGF0aCBkPSJNMTEgMThoMnYtMmgtMnYyem0xLTE2QzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMi4yMSAwLTQgMS43OS00IDRoMmMwLTEuMS45LTIgMi0yczIgLjkgMiAyYzAgMi0zIDEuNzUtMyA1aDJjMC0yLjI1IDMtMi41IDMtNSAwLTIuMjEtMS43OS00LTQtNHoiLz48L3N2Zz4=">
+                <h2>Symptoms</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auto Detect Page -->
+    <div id="auto-detect-page" class="container hidden">
+        <button class="nav-button" onclick="goBack()">← Back</button>
+        <div class="auto-detect-container">
+            <h1>Auto Detection</h1>
+            <div class="input-section">
+                <textarea placeholder="Enter your symptoms here..."></textarea>
+                <div class="file-upload">
+                    <p>Or upload medical reports</p>
+                    <input type="file" accept=".pdf,.doc,.docx,.txt">
+                </div>
+                <button class="submit-button" onclick="viewResults()">View Results</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Specific Disease Page -->
+    <div id="specific-disease-page" class="container hidden">
+        <button class="nav-button" onclick="goBack()">← Back</button>
+        <div class="disease-container">
+            <h1>Select Disease</h1>
+            <div class="disease-option" onclick="selectDisease(this)">Diabetes</div>
+            <div class="disease-option" onclick="selectDisease(this)">Hypertension</div>
+            <div class="disease-option" onclick="selectDisease(this)">Asthma</div>
+            <div class="disease-option" onclick="selectDisease(this)">Coronary Artery Disease</div>
+            <div class="disease-option" onclick="selectDisease(this)">Chronic Kidney Disease</div>
+        </div>
+    </div>
+
+    <!-- Symptoms Page -->
+    <div id="symptoms-page" class="container hidden">
+        <button class="nav-button" onclick="goBack()">← Back</button>
+        <div class="auto-detect-container">
+            <h1>Symptoms Analysis</h1>
+            <div class="construction-notice">
+                <h2>🚧 Under Development 🚧</h2>
+                <p>This feature is coming soon!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
