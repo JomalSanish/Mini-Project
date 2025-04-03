@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Extras</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal.hidden {
+      display: none;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    label, p {
+      display: block;
+      margin: 10px 0 4px;
+    }
+    input[type="number"], select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .submit-button, .nav-button {
+      padding: 10px 20px;
+      margin: 10px 5px 0 0;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .submit-button {
+      background-color: #28a745;
+      color: white;
+    }
+    .nav-button {
+      background-color: #ccc;
+    }
+    .result-box {
+      background-color: #fff;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="extras-page" class="container">
+    <h1>Extras</h1>
+    <div class="disease-container">
+      <div class="disease-option" onclick="openDiabetesModal()">Diabetes</div>
+      <div class="disease-option">Other diseases (Coming soon)</div>
+    </div>
+    </div>
+
+    <!-- Diabetes Prediction Modal  -->
+    <div id="diabetes-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Diabetes Prediction</h2>
+        <form id="diabetes-form">
+          <label>Age: <input type="number" name="age" required /></label>
+          <label>Gender:
+            <select name="gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </label>
+
+          <p>Have you experienced excessive urination?</p>
+          <label><input type="radio" name="polyuria" value="1" required /> Yes</label>
+          <label><input type="radio" name="polyuria" value="0" required /> No</label>
+
+          <p>Have you experienced excessive thirst or drinking?</p>
+          <label><input type="radio" name="polydipsia" value="1" required /> Yes</label>
+          <label><input type="radio" name="polydipsia" value="0" required /> No</label>
+
+          <p>Have you experienced sudden weight loss?</p>
+          <label><input type="radio" name="sudden_weight_loss" value="1" required /> Yes</label>
+          <label><input type="radio" name="sudden_weight_loss" value="0" required /> No</label>
+
+          <p>Have you felt unusually weak?</p>
+          <label><input type="radio" name="weakness" value="1" required /> Yes</label>
+          <label><input type="radio" name="weakness" value="0" required /> No</label>
+
+          <p>Have you experienced excessive hunger?</p>
+          <label><input type="radio" name="polyphagia" value="1" required /> Yes</label>
+          <label><input type="radio" name="polyphagia" value="0" required /> No</label>
+
+          <p>Have you had a yeast infection?</p>
+          <label><input type="radio" name="genital_thrush" value="1" required /> Yes</label>
+          <label><input type="radio" name="genital_thrush" value="0" required /> No</label>
+
+          <p>Have you experienced blurred vision?</p>
+          <label><input type="radio" name="visual_blurring" value="1" required /> Yes</label>
+          <label><input type="radio" name="visual_blurring" value="0" required /> No</label>
+
+          <p>Have you experienced significant itching?</p>
+          <label><input type="radio" name="itching" value="1" required /> Yes</label>
+          <label><input type="radio" name="itching" value="0" required /> No</label>
+
+          <p>Have you felt unusually irritable?</p>
+          <label><input type="radio" name="irritability" value="1" required /> Yes</label>
+          <label><input type="radio" name="irritability" value="0" required /> No</label>
+
+          <p>Have you noticed slow healing of cuts or wounds?</p>
+          <label><input type="radio" name="delayed_healing" value="1" required /> Yes</label>
+          <label><input type="radio" name="delayed_healing" value="0" required /> No</label>
+
+          <p>Have you experienced partial muscle weakness?</p>
+          <label><input type="radio" name="partial_paresis" value="1" required /> Yes</label>
+          <label><input type="radio" name="partial_paresis" value="0" required /> No</label>
+
+          <p>Have you experienced muscle stiffness?</p>
+          <label><input type="radio" name="muscle_stiffness" value="1" required /> Yes</label>
+          <label><input type="radio" name="muscle_stiffness" value="0" required /> No</label>
+
+          <p>Have you experienced hair loss?</p>
+          <label><input type="radio" name="alopecia" value="1" required /> Yes</label>
+          <label><input type="radio" name="alopecia" value="0" required /> No</label>
+
+          <p>Are you overweight?</p>
+          <label><input type="radio" name="obesity" value="1" required /> Yes</label>
+          <label><input type="radio" name="obesity" value="0" required /> No</label>
+
+          <button type="submit" class="submit-button">Predict Diabetes</button>
+          <button type="button" class="nav-button" onclick="closeDiabetesModal()">Close</button>
+        </form>
+        <div id="prediction-result" class="result-box hidden"></div>
+      </div>
+    </div>
+
+    <script>
+      // Open and close modal functions
+      function openDiabetesModal() {
+        document.getElementById("diabetes-modal").classList.remove("hidden");
+      }
+
+      function closeDiabetesModal() {
+        document.getElementById("diabetes-modal").classList.add("hidden");
+        document.getElementById("diabetes-form").reset();
+        document.getElementById("prediction-result").classList.add("hidden");
+      }
+
+      // Handle diabetes prediction form submission
+      document.getElementById("diabetes-form").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => { data[key] = value });
+        
+        const resultBox = document.getElementById("prediction-result");
+        resultBox.classList.remove("hidden");
+        resultBox.textContent = "Predicting...";
+        
+        try {
+          const res = await fetch("http://localhost:5000/predict_diabetes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+          const result = await res.json();
+          if(result.success) {
+            resultBox.textContent = `Prediction: ${result.prediction}\n${result.disclaimer}`;
+          } else {
+            resultBox.textContent = "Error: " + result.error;
+          }
+        } catch (error) {
+          resultBox.textContent = "Request failed: " + error;
+        }
+      });
+    </script>
+  </body>
+</html>

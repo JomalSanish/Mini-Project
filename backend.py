@@ -5,6 +5,7 @@ from google import genai  # Gemini AI
 import PyPDF2  # for parsing pdf
 from docx import Document  # for parsing document format
 from datetime import datetime # current time
+import pickle  # for loading our ML model
 
 app = Flask(__name__)
 CORS(app)
@@ -78,7 +79,7 @@ Don't use numbers or asterisks; keep the response short.
 5. Brief explanation
 6. Keep the result as if it's coming from a medical practitioner
 7. Do not use numbers or asterisks
-8. Give a disclaimer that this is ai generated and to approach a doctor for detailed analysis
+8. Disclaimer: The analysis is AI-generated; please consult a doctor for detailed evaluation.
 
 Medical Inputs:
 {input_text}
@@ -110,6 +111,40 @@ Medical Inputs:
             'success': False,
             'error': str(e)
         })
+
+@app.route('/predict_diabetes', methods=['POST'])
+def predict_diabetes():
+    try:
+        data = request.get_json()
+        # Extract and convert input features from JSON
+        features = [
+            int(data.get("age")),
+            1 if data.get("gender").strip().lower() == "male" else 0,
+            int(data.get("polyuria")),
+            int(data.get("polydipsia")),
+            int(data.get("sudden_weight_loss")),
+            int(data.get("weakness")),
+            int(data.get("polyphagia")),
+            int(data.get("genital_thrush")),
+            int(data.get("visual_blurring")),
+            int(data.get("itching")),
+            int(data.get("irritability")),
+            int(data.get("delayed_healing")),
+            int(data.get("partial_paresis")),
+            int(data.get("muscle_stiffness")),
+            int(data.get("alopecia")),
+            int(data.get("obesity"))
+        ]
+        # Load the pre-trained diabetes model
+        with open("Models/diabetes_model.pkl", "rb") as f:
+            model = pickle.load(f)
+        prediction = model.predict([features])
+        result = "Diabetic" if prediction[0] == 1 else "Non-Diabetic"
+        disclaimer = ("Disclaimer: The prediction is AI-generated and should not be considered a medical diagnosis. "
+                      "Please consult a doctor for a detailed evaluation.")
+        return jsonify({"success": True, "prediction": result, "disclaimer": disclaimer})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
 
 @app.route('/history', methods=['GET'])
 def history():
