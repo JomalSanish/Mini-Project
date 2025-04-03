@@ -1,9 +1,6 @@
 function navigateTo(page) {
     document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
     document.getElementById(`${page}-page`).classList.remove('hidden');
-    
-    if(page === 'symptoms') {
-    }
 }
 
 function goBack() {
