@@ -9,8 +9,8 @@ function navigateTo(page) {
     }
   }
   
+  // From Auto Detect, Extras, or History back to home page
   function goBack() {
-    // From Auto Detect, Extras, or History back to home page
     document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
     document.getElementById('home-page').classList.remove('hidden');
   }

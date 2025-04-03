@@ -170,7 +170,7 @@
   }
   
   .submit-button {
-    background: #4CAF50;
+    background: var(--primary-blue);
     color: var(--white);
     padding: 1rem 2rem;
     border: none;
@@ -181,7 +181,7 @@
   }
   
   .submit-button:hover {
-    background: #45a049;
+    background: #1e92d6;
   }
   
   /* Extras Page */
