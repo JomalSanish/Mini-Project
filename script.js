@@ -1,10 +1,8 @@
-// Keep these existing functions unchanged
 function navigateTo(page) {
     document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
     document.getElementById(`${page}-page`).classList.remove('hidden');
     
     if(page === 'symptoms') {
-        // Add any specific logic for symptoms page
     }
 }
 
@@ -16,10 +14,8 @@ function goBack() {
 function selectDisease(element) {
     document.querySelectorAll('.disease-option').forEach(el => el.style.background = 'white');
     element.style.background = '#e3f2fd';
-    // Add disease selection logic here
 }
 
-// Replace JUST the viewResults function with the new version
 async function viewResults() {
     const textInput = document.querySelector('textarea').value;
     const fileInput = document.querySelector('input[type="file"]').files[0];
@@ -47,7 +43,6 @@ async function viewResults() {
     }
 }
 
-// Add this new function at the bottom
 function showResultsModal(content) {
     const modal = document.createElement('div');
     modal.className = 'modal';

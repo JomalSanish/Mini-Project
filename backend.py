@@ -1,9 +1,9 @@
-from flask import Flask, request, jsonify
-from google import genai
-import os
-import PyPDF2
-from docx import Document
-from flask_cors import CORS  # Add this at the top
+from flask import Flask, request, jsonify #connecting to front end
+from flask_cors import CORS
+from google import genai #gemini
+import PyPDF2 #for parsing pdf
+from docx import Document #for parsing document format
+
 
 app = Flask(__name__)
 CORS(app)
