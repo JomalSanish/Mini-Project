@@ -178,6 +178,38 @@ def predict_liver():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
 
+@app.route('/predict_mental', methods=['POST'])
+def predict_mental():
+    try:
+        data = request.get_json()
+        # Convert inputs to numeric features using the same logic as in training
+        gender_num = 1 if data.get("gender", "").strip().lower() == "male" else 0
+        age_val = float(data.get("age"))
+        year_val = float(data.get("year"))
+        cgpa_map = {
+            "2.50 - 2.99": 0,
+            "3.00 - 3.49": 1,
+            "3.50 - 4.00": 2
+        }
+        cgpa_val = cgpa_map.get(data.get("cgpa", "").strip(), 1)  # default to 1 if not found
+        marital_val = 1 if data.get("marital", "").strip().lower() == "yes" else 0
+        specialist_val = 1 if data.get("specialist", "").strip().lower() == "yes" else 0
+
+        # Use the same features as in training
+        features = [gender_num, age_val, year_val, cgpa_val, marital_val, specialist_val]
+
+        with open("Models/mental_model.pkl", "rb") as f:
+            mental_model = pickle.load(f)
+
+        prediction = mental_model.predict([features])[0]
+        result = "Likely to have mental health issues" if prediction == 1 else "Less likely to have mental health issues"
+        disclaimer = ("Disclaimer: The prediction is AI-generated and should not be considered a medical diagnosis. "
+                      "Please consult a mental health professional for a detailed evaluation.")
+        return jsonify({"success": True, "prediction": result, "disclaimer": disclaimer})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
+
+
 @app.route('/history', methods=['GET'])
 def history():
     try:
