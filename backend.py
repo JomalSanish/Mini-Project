@@ -146,6 +146,38 @@ def predict_diabetes():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
 
+@app.route('/predict_liver', methods=['POST'])
+def predict_liver():
+    try:
+        data = request.get_json()
+        # Extract liver disease features; convert appropriate types.
+        # Expected features (in order):
+        # Age, Sex, Total_Bilirubin, Direct_Bilirubin, Alkaline_Phosphotase,
+        # Alamine_Aminotransferase, Aspartate_Aminotransferase, Total_Proteins,
+        # Albumin, Albumin_and_Globulin_Ratio
+        features = [
+            float(data.get("age")),
+            1 if data.get("gender").strip().lower() == "male" else 0,
+            float(data.get("total_bilirubin")),
+            float(data.get("direct_bilirubin")),
+            float(data.get("alkaline_phosphotase")),
+            float(data.get("alt")),
+            float(data.get("ast")),
+            float(data.get("total_proteins")),
+            float(data.get("albumin")),
+            float(data.get("ag_ratio"))
+        ]
+        with open("Models/liver_model.pkl", "rb") as f:
+            liver_model = pickle.load(f)
+        prediction = liver_model.predict([features])
+        # Depending on your dataset, adjust prediction meaning.
+        result = "Liver Disease Detected" if prediction[0] == 1 else "No Liver Disease Detected"
+        disclaimer = ("Disclaimer: The prediction is AI-generated and should not be considered a medical diagnosis. "
+                      "Please consult a doctor for a detailed evaluation.")
+        return jsonify({"success": True, "prediction": result, "disclaimer": disclaimer})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
+
 @app.route('/history', methods=['GET'])
 def history():
     try:
