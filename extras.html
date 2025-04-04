@@ -182,7 +182,8 @@
           });
           const result = await res.json();
           if(result.success) {
-            resultBox.textContent = `Prediction: ${result.prediction}\n${result.disclaimer}`;
+            resultBox.textContent = `Prediction: ${result.prediction}`;
+            alert(result.disclaimer);
           } else {
             resultBox.textContent = "Error: " + result.error;
           }
