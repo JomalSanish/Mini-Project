@@ -4,29 +4,6 @@ A web-based health monitoring system that combines Gemini AI, machine learning m
 
 ---
 
-## 📁 Project Structure
-
-HealthMonitor/
-│
-├── Models/
-│ ├── diabetes_model.pkl
-│ ├── liver_model.pkl
-│ └── mental_model.pkl
-│
-├── static/
-│ ├── styles.css
-│ └── script.js
-│
-├── templates/
-│ ├── index.html
-│ └── extras.html
-│
-├── backend.py
-├── requirements.txt
-└── README.md
-
----
-
 ## 🚀 Features
 
 - 🔐 User Signup & Login
